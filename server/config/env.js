@@ -6,6 +6,8 @@ const env = {
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
 
   db: {
+    // a full connection string (used by cloud hosts like Supabase/Neon/Render)
+    url: process.env.DATABASE_URL || '',
     host: process.env.DB_HOST || 'localhost',
     port: Number(process.env.DB_PORT) || 5432,
     name: process.env.DB_NAME || 'sports_hub',
