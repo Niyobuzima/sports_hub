@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+// in production the API is same-origin at /api (Vercel), locally use VITE_API_URL
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 // attach token if we have one
