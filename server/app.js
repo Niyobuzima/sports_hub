@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth.routes');
 const registrationRoutes = require('./routes/registration.routes');
 const categoryRoutes = require('./routes/category.routes');
 const paymentRoutes = require('./routes/payment.routes');
+const subscriptionRoutes = require('./routes/subscription.routes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/registrations', registrationRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/subscriptions', subscriptionRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
