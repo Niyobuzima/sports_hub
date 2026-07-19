@@ -16,12 +16,12 @@ async function findById(id) {
   return res.rows[0];
 }
 
-async function createUser({ full_name, email, password_hash, role_id }) {
+async function createUser({ full_name, email, password_hash, role_id, referred_by }) {
   const res = await query(
-    `INSERT INTO users (full_name, email, password_hash, role_id)
-     VALUES ($1, $2, $3, $4)
+    `INSERT INTO users (full_name, email, password_hash, role_id, referred_by)
+     VALUES ($1, $2, $3, $4, $5)
      RETURNING id, full_name, email, account_status, role_id`,
-    [full_name, email, password_hash, role_id]
+    [full_name, email, password_hash, role_id, referred_by || null]
   );
   return res.rows[0];
 }

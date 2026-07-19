@@ -8,6 +8,7 @@ export default function Register() {
     email: '',
     password: '',
     role: 'customer',
+    referral_code: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -25,7 +26,7 @@ export default function Register() {
     try {
       const res = await register(form);
       setSuccess(res.message);
-      setForm({ full_name: '', email: '', password: '', role: 'customer' });
+      setForm({ full_name: '', email: '', password: '', role: 'customer', referral_code: '' });
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed');
     } finally {
@@ -76,6 +77,15 @@ export default function Register() {
               <option value="customer">Customer</option>
               <option value="instructor">Instructor</option>
             </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Referral code (optional)</Form.Label>
+            <Form.Control
+              name="referral_code"
+              value={form.referral_code}
+              onChange={update}
+              placeholder="e.g. SPH-000123"
+            />
           </Form.Group>
           <Button type="submit" disabled={busy} className="w-100">
             {busy ? 'Submitting...' : 'Register'}

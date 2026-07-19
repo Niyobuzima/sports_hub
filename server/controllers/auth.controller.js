@@ -1,11 +1,12 @@
 const bcrypt = require('bcrypt');
 const userModel = require('../models/user.model');
 const { createRegistration } = require('../models/registration.model');
+const referralModel = require('../models/referral.model');
 const { signToken } = require('../utils/token');
 
 async function register(req, res, next) {
   try {
-    const { full_name, email, password, role, category_id } = req.body;
+    const { full_name, email, password, role, category_id, referral_code } = req.body;
 
     // only customers and instructors can self-register
     const roleName = role === 'instructor' ? 'instructor' : 'customer';
@@ -16,13 +17,24 @@ async function register(req, res, next) {
       return res.status(409).json({ error: 'Email already registered' });
     }
 
+    // if they typed a referral code, find who referred them
+    let referredBy = null;
+    if (referral_code) {
+      const referrer = await referralModel.findByReferralCode(referral_code.trim());
+      if (referrer) referredBy = referrer.id;
+    }
+
     const password_hash = await bcrypt.hash(password, 10);
     const user = await userModel.createUser({
       full_name,
       email,
       password_hash,
       role_id: roleRow.id,
+      referred_by: referredBy,
     });
+
+    // give the new user their own referral code (SPH-000123)
+    await referralModel.setReferralCode(user.id);
 
     await createRegistration({ user_id: user.id, category_id });
 
