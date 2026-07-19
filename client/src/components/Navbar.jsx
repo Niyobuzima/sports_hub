@@ -33,6 +33,7 @@ export default function Navbar() {
               <>
                 <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
                 <Nav.Link as={Link} to="/admin/categories">Categories</Nav.Link>
+                <Nav.Link as={Link} to="/admin/reports">Reports</Nav.Link>
               </>
             )}
           </Nav>
