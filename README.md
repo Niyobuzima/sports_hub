@@ -105,11 +105,36 @@ npm run dev               # starts the app at http://localhost:5173
 - `develop` — integration branch. All feature branches merge here.
 - `feature/NN-short-name` — one task per branch, opened as a PR into `develop`.
 
-## Deployment notes
+## Deployment (Vercel monorepo)
 
-- **Client:** any static host (Netlify, Vercel). Build with `npm run build`; set
-  `VITE_API_URL` to the deployed API URL.
-- **Server:** any Node host (Render, Railway, etc.). Set the `.env` variables and
-  run `npm run migrate && npm run seed` once against the production database.
-- **Database:** a managed PostgreSQL instance (Render, Supabase, Neon).
-- Remember to set the server's `CLIENT_URL` to the deployed client origin for CORS.
+This repo is a monorepo: the React client and the Express API deploy together
+from one Vercel project, configured by [`vercel.json`](vercel.json):
+
+- The **client** (`client/`) builds as a static site (`@vercel/static-build`).
+- The **API** (`server/index.js`) runs as a serverless function; all `/api/*`
+  requests route to it, and the client calls it same-origin at `/api`.
+
+### One-time setup on Vercel
+
+1. Import the GitHub repo into Vercel. Leave the **Root Directory** at the repo
+   root — `vercel.json` handles the monorepo build (do not set it to `client`).
+2. Provision a managed PostgreSQL database (Supabase, Neon, Render, …).
+3. In the Vercel project **Environment Variables**, set:
+   - `DATABASE_URL` — the cloud Postgres connection string (used with SSL)
+   - `JWT_SECRET` — a long random string
+   - `CLIENT_URL` — your Vercel site URL (for CORS)
+4. Create the schema once by running the migrations/seed locally against the
+   cloud DB: set `DATABASE_URL` in `server/.env`, then
+   `cd server && npm run migrate && npm run seed`.
+5. Deploy. The site serves the client, and the API is live under `/api`.
+
+> Local development is unchanged: `server/.env` uses the individual `DB_*` vars,
+> and the client uses `VITE_API_URL`. In production the client falls back to the
+> same-origin `/api`, so no client build-time env var is required.
+
+### Other hosts
+
+- **Client:** any static host — build `client` with `npm run build`, set
+  `VITE_API_URL` to the API URL.
+- **Server:** any Node host (Render, Railway) — set the env vars and run
+  `npm run migrate && npm run seed` against the database.
