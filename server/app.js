@@ -14,6 +14,7 @@ const rewardRoutes = require('./routes/reward.routes');
 const withdrawalRoutes = require('./routes/withdrawal.routes');
 const facilityRoutes = require('./routes/facility.routes');
 const reportsRoutes = require('./routes/reports.routes');
+const notificationRoutes = require('./routes/notification.routes');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/api/rewards', rewardRoutes);
 app.use('/api/withdrawals', withdrawalRoutes);
 app.use('/api/facilities', facilityRoutes);
 app.use('/api/reports', reportsRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

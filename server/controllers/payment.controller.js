@@ -3,6 +3,7 @@ const subModel = require('../models/subscription.model');
 const paymentModel = require('../models/payment.model');
 const referralModel = require('../models/referral.model');
 const rewardModel = require('../models/reward.model');
+const { notify } = require('../models/notification.model');
 const { addMonths, today } = require('../utils/dates');
 
 async function createPayment(req, res, next) {
@@ -73,8 +74,11 @@ async function createPayment(req, res, next) {
           amount: bonusAmount,
         });
         await rewardModel.addPoints(referrerId, rewardModel.POINTS.referral, 'Referral');
+        await notify(referrerId, `You earned a referral bonus of ${bonusAmount}`);
       }
     }
+
+    await notify(userId, `Payment of ${amount} received`);
 
     res.status(201).json({ payment, subscription, referralBonus });
   } catch (err) {
