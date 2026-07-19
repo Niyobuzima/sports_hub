@@ -3,7 +3,7 @@
 A web-based platform to manage a sports club's memberships, registrations,
 payments, referrals, reward points, facilities, and reports.
 
-University group project (BBICT Group Three).
+University group project (BBICT Group Four).
 
 ## Live demo
 
@@ -13,7 +13,7 @@ University group project (BBICT Group Three).
 Admin login: `admin@sportshub.local` / `admin123`
 (The API root returns 404 by design — all endpoints live under `/api`.)
 
-## Group members (BBICT Group Three)
+## Group members (BBICT Group Four)
 
 | #  | Name                      | Registration number |
 | -- | ------------------------- | ------------------- |

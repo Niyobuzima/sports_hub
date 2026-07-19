@@ -1,7 +1,7 @@
 # Software Requirements Specification (SRS)
 
 Project: Sports HUB Management System
-Group: BBICT Group Three
+Group: BBICT Group Four
 
 ## 1. Introduction
 

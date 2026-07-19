@@ -1,6 +1,6 @@
 # Project Deliverables
 
-Documentation for the Sports HUB Management System (BBICT Group Three).
+Documentation for the Sports HUB Management System (BBICT Group Four).
 
 > **PDF versions** of every document are in [`pdf/`](pdf/) (diagrams included).
 
