@@ -2,6 +2,8 @@
 
 Documentation for the Sports HUB Management System (BBICT Group Three).
 
+> **PDF versions** of every document are in [`pdf/`](pdf/) (diagrams included).
+
 | # | Deliverable | Where |
 |---|---|---|
 | 1 | Software Requirements Specification (SRS) | [SRS.md](SRS.md) |
