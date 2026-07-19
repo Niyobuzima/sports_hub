@@ -11,6 +11,7 @@ import Categories from './pages/Categories';
 import Payments from './pages/Payments';
 import Referrals from './pages/Referrals';
 import Rewards from './pages/Rewards';
+import Facilities from './pages/Facilities';
 import AccountStatus from './pages/AccountStatus';
 import NotFound from './pages/NotFound';
 
@@ -76,6 +77,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Rewards />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/facilities"
+            element={
+              <ProtectedRoute>
+                <Facilities />
               </ProtectedRoute>
             }
           />
