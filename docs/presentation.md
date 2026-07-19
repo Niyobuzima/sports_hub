@@ -4,7 +4,7 @@ A simple slide outline and a demo script for the presentation.
 
 ## Slide outline
 
-1. **Title** — Sports HUB Management System, BBICT Group Three, member names.
+1. **Title** — Sports HUB Management System, BBICT Group Four, member names.
 2. **Problem** — clubs manage members by hand; it's slow and error-prone.
 3. **Solution** — a web app for members, payments, referrals, points, facilities.
 4. **Users** — Customer, Instructor, Admin.

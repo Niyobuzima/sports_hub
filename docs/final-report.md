@@ -1,7 +1,7 @@
 # Final Project Report
 
 Project: Sports HUB Management System
-Group: BBICT Group Three
+Group: BBICT Group Four
 
 ## Group members
 
