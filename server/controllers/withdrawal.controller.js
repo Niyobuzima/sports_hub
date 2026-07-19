@@ -2,6 +2,7 @@ const withdrawalModel = require('../models/withdrawal.model');
 const rewardModel = require('../models/reward.model');
 const subModel = require('../models/subscription.model');
 const categoryModel = require('../models/category.model');
+const { notify } = require('../models/notification.model');
 
 async function withdraw(req, res, next) {
   try {
@@ -33,6 +34,7 @@ async function withdraw(req, res, next) {
     await rewardModel.deductPoints(userId, points, 'Withdrawal');
     const withdrawal = await withdrawalModel.createWithdrawal(userId, points);
     const newBalance = await rewardModel.getBalance(userId);
+    await notify(userId, `Withdrawal of ${points} points completed`);
 
     res.status(201).json({ withdrawal, balance: newBalance });
   } catch (err) {

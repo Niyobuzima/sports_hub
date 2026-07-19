@@ -13,6 +13,7 @@ import Referrals from './pages/Referrals';
 import Rewards from './pages/Rewards';
 import Facilities from './pages/Facilities';
 import Reports from './pages/Reports';
+import Notifications from './pages/Notifications';
 import AccountStatus from './pages/AccountStatus';
 import NotFound from './pages/NotFound';
 
@@ -94,6 +95,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Facilities />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectedRoute requireActive={false}>
+                <Notifications />
               </ProtectedRoute>
             }
           />

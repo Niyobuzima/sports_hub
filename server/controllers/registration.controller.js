@@ -1,4 +1,12 @@
 const regModel = require('../models/registration.model');
+const { notify } = require('../models/notification.model');
+
+const NOTIFY_MSG = {
+  approve: 'Your registration has been approved. Welcome!',
+  reject: 'Your registration was rejected.',
+  suspend: 'Your account has been suspended.',
+  activate: 'Your account has been re-activated.',
+};
 
 // action -> resulting statuses
 const ACTIONS = {
@@ -34,6 +42,7 @@ async function updateStatus(req, res, next) {
     if (!updated) {
       return res.status(404).json({ error: 'Registration not found' });
     }
+    await notify(userId, NOTIFY_MSG[action]);
     res.json({ message: `Registration ${map.reg}`, status: updated.status });
   } catch (err) {
     next(err);

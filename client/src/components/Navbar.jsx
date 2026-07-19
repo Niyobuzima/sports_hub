@@ -1,10 +1,23 @@
-import { Navbar as BsNavbar, Nav, Container, Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Navbar as BsNavbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { myNotifications } from '../api/notifications';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [unread, setUnread] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      myNotifications()
+        .then((d) => setUnread(d.unread))
+        .catch(() => setUnread(0));
+    } else {
+      setUnread(0);
+    }
+  }, [user]);
 
   function handleLogout() {
     logout();
@@ -40,6 +53,10 @@ export default function Navbar() {
           <Nav className="align-items-center">
             {user ? (
               <>
+                <Nav.Link as={Link} to="/notifications" className="text-light">
+                  Notifications{' '}
+                  {unread > 0 && <Badge bg="danger">{unread}</Badge>}
+                </Nav.Link>
                 <span className="text-light me-3">{user.full_name}</span>
                 <Button size="sm" variant="outline-light" onClick={handleLogout}>
                   Logout
