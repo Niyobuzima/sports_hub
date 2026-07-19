@@ -17,7 +17,11 @@ export default function Login() {
     setBusy(true);
     try {
       const user = await login(email, password);
-      navigate(user.role === 'admin' ? '/admin' : '/member');
+      if (user.account_status !== 'active') {
+        navigate('/account');
+      } else {
+        navigate(user.role === 'admin' ? '/admin' : '/member');
+      }
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     } finally {

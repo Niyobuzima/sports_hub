@@ -48,12 +48,8 @@ async function login(req, res, next) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    if (user.account_status !== 'active') {
-      return res
-        .status(403)
-        .json({ error: `Account is ${user.account_status}. Please contact admin.` });
-    }
-
+    // we let pending/suspended users log in too, the frontend sends them
+    // to a status page instead of the dashboard
     const full = await userModel.findById(user.id);
     const token = signToken(full);
     res.json({ token, user: full });

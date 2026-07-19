@@ -9,6 +9,7 @@ import MemberDashboard from './pages/MemberDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Categories from './pages/Categories';
 import Payments from './pages/Payments';
+import AccountStatus from './pages/AccountStatus';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -20,6 +21,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute requireActive={false}>
+                <AccountStatus />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/member"
             element={
