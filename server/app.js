@@ -12,6 +12,7 @@ const subscriptionRoutes = require('./routes/subscription.routes');
 const referralRoutes = require('./routes/referral.routes');
 const rewardRoutes = require('./routes/reward.routes');
 const withdrawalRoutes = require('./routes/withdrawal.routes');
+const facilityRoutes = require('./routes/facility.routes');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/referrals', referralRoutes);
 app.use('/api/rewards', rewardRoutes);
 app.use('/api/withdrawals', withdrawalRoutes);
+app.use('/api/facilities', facilityRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
