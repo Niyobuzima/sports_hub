@@ -20,7 +20,7 @@ export default function Navbar() {
         <BsNavbar.Toggle />
         <BsNavbar.Collapse>
           <Nav className="me-auto">
-            {user && user.role !== 'admin' && (
+            {user && user.role !== 'admin' && user.account_status === 'active' && (
               <>
                 <Nav.Link as={Link} to="/member">Dashboard</Nav.Link>
                 <Nav.Link as={Link} to="/payments">Payments</Nav.Link>
