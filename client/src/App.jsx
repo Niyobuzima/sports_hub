@@ -10,6 +10,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Categories from './pages/Categories';
 import Payments from './pages/Payments';
 import Referrals from './pages/Referrals';
+import Rewards from './pages/Rewards';
 import AccountStatus from './pages/AccountStatus';
 import NotFound from './pages/NotFound';
 
@@ -67,6 +68,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Referrals />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rewards"
+            element={
+              <ProtectedRoute>
+                <Rewards />
               </ProtectedRoute>
             }
           />
