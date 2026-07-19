@@ -1,0 +1,64 @@
+const categoryModel = require('../models/category.model');
+const subModel = require('../models/subscription.model');
+const paymentModel = require('../models/payment.model');
+const { addMonths, today } = require('../utils/dates');
+
+async function createPayment(req, res, next) {
+  try {
+    const userId = req.user.id;
+    const { category_id, payment_type, months_paid = 1 } = req.body;
+
+    const category = await categoryModel.getCategory(Number(category_id));
+    if (!category) return res.status(404).json({ error: 'Category not found' });
+
+    let subscription = null;
+    let amount;
+
+    if (payment_type === 'registration') {
+      amount = Number(category.registration_fee);
+    } else {
+      // monthly / renewal -> create or extend the subscription
+      const months = Number(months_paid) || 1;
+      amount = Number(category.monthly_fee) * months;
+
+      const latest = await subModel.getLatestByUser(userId);
+      if (latest && latest.expiry_date >= today()) {
+        // still active: add months on top of current expiry
+        const newExpiry = addMonths(latest.expiry_date, months);
+        subscription = await subModel.extendSubscription(latest.id, newExpiry, category_id);
+      } else {
+        // no sub or expired: start fresh from today
+        const start = today();
+        const expiry = addMonths(start, months);
+        subscription = await subModel.createSubscription({
+          user_id: userId,
+          category_id,
+          start_date: start,
+          expiry_date: expiry,
+        });
+      }
+    }
+
+    const payment = await paymentModel.createPayment({
+      user_id: userId,
+      subscription_id: subscription ? subscription.id : null,
+      payment_type,
+      months_paid: payment_type === 'monthly' ? Number(months_paid) || 1 : 1,
+      amount,
+    });
+
+    res.status(201).json({ payment, subscription });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function myPayments(req, res, next) {
+  try {
+    res.json({ payments: await paymentModel.listByUser(req.user.id) });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { createPayment, myPayments };
