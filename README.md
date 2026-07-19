@@ -5,6 +5,14 @@ payments, referrals, reward points, facilities, and reports.
 
 University group project (BBICT Group Three).
 
+## Live demo
+
+- **App (frontend):** https://sports-hub-cpzg.vercel.app/
+- **API (backend):** https://sports-hub-fdmh.onrender.com/api
+
+Admin login: `admin@sportshub.local` / `admin123`
+(The API root returns 404 by design — all endpoints live under `/api`.)
+
 ## Group members (BBICT Group Three)
 
 | #  | Name                      | Registration number |
