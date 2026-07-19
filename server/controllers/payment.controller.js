@@ -2,6 +2,7 @@ const categoryModel = require('../models/category.model');
 const subModel = require('../models/subscription.model');
 const paymentModel = require('../models/payment.model');
 const referralModel = require('../models/referral.model');
+const rewardModel = require('../models/reward.model');
 const { addMonths, today } = require('../utils/dates');
 
 async function createPayment(req, res, next) {
@@ -48,8 +49,18 @@ async function createPayment(req, res, next) {
       amount,
     });
 
+    // reward points for the payment
+    const mult = Number(category.reward_multiplier) || 1;
+    if (payment_type === 'registration') {
+      await rewardModel.addPoints(userId, rewardModel.POINTS.registration, 'Registration');
+    } else {
+      const months = Number(months_paid) || 1;
+      const pts = Math.round(rewardModel.POINTS.monthly * months * mult);
+      await rewardModel.addPoints(userId, pts, 'Monthly payment');
+    }
+
     // referral bonus: if this member was referred, credit the referrer a
-    // percentage of this payment based on the category referral_percent
+    // percentage of this payment plus referral reward points
     let referralBonus = null;
     const referrerId = await referralModel.getReferrerId(userId);
     if (referrerId && Number(category.referral_percent) > 0) {
@@ -61,6 +72,7 @@ async function createPayment(req, res, next) {
           payment_id: payment.id,
           amount: bonusAmount,
         });
+        await rewardModel.addPoints(referrerId, rewardModel.POINTS.referral, 'Referral');
       }
     }
 
