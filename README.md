@@ -5,6 +5,35 @@ payments, referrals, reward points, facilities, and reports.
 
 University group project (BBICT Group Three).
 
+## Group members (BBICT Group Three)
+
+| #  | Name                        | Registration number |
+| -- | --------------------------- | ------------------- |
+| 1  | NIYOBUZIMA Theophile        | BBICTR/2026/69295   |
+| 2  | Rukundo Toussaint           | BBICTR/2026/69182   |
+| 3  | Uwamahirwe Yvette           | BBICTR/2026/69598   |
+| 4  | Isimbi Teta Sonia           | BBICTR/2026/68283   |
+| 5  | Agatesi Queen               | BBICTR/2026/69575   |
+| 6  | Mugisha Simeon              | BBICTR/2026/69432   |
+| 7  | Mwami Elie                  | BBICTR/2026/69133   |
+| 8  | Manzi Eria                  | BBICTR/2026/69831   |
+| 9  | Manzi Solomon               | BICTR/2026/69389    |
+| 10 | Murekatete Divine           | BBICTR/2026/68328   |
+| 11 | Mizero Igena Yvaun          | BBICTR/2026/69248   |
+| 12 | Mujawayezu Egidia           | BBICTR/2026/68790   |
+| 13 | Ikuzwe Chrispin             | BBICTR/2026/69898   |
+| 14 | INGABIRE Ridhuanat Bin'ta   | BBICTR/2026/30090   |
+| 15 | Mukama Caleb                | BICTR/2026/68518    |
+| 16 | Yvan CYUSA                  | BBICTR/2026/69803   |
+| 17 | Ramadhan HIRWA              | BBICTR/2026/69188   |
+| 18 | Kwizera Maxime              | BBICTR/2026/30075   |
+| 19 | Ntakirutimana Yassin        | BBICTR/2026/69540   |
+| 20 | Munezero David              | BBICTR/2026/68828   |
+| 21 | Asingizwe Aphyah Bonny      | BBICTR/2026/69773   |
+| 22 | Rugaba Kenny                | (to be confirmed)   |
+| 23 | Isimbi Kanziga Darlene      | BBICTR/2026/69444   |
+| 24 | Rutagarama Severin          | BBICTR/2026/69270   |
+
 ## Tech stack
 
 | Layer    | Technology                                             |
