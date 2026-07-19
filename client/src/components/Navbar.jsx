@@ -24,6 +24,7 @@ export default function Navbar() {
               <>
                 <Nav.Link as={Link} to="/member">Dashboard</Nav.Link>
                 <Nav.Link as={Link} to="/payments">Payments</Nav.Link>
+                <Nav.Link as={Link} to="/referrals">Referrals</Nav.Link>
               </>
             )}
             {user && user.role === 'admin' && (

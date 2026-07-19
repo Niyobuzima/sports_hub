@@ -1,6 +1,7 @@
 const categoryModel = require('../models/category.model');
 const subModel = require('../models/subscription.model');
 const paymentModel = require('../models/payment.model');
+const referralModel = require('../models/referral.model');
 const { addMonths, today } = require('../utils/dates');
 
 async function createPayment(req, res, next) {
@@ -47,7 +48,23 @@ async function createPayment(req, res, next) {
       amount,
     });
 
-    res.status(201).json({ payment, subscription });
+    // referral bonus: if this member was referred, credit the referrer a
+    // percentage of this payment based on the category referral_percent
+    let referralBonus = null;
+    const referrerId = await referralModel.getReferrerId(userId);
+    if (referrerId && Number(category.referral_percent) > 0) {
+      const bonusAmount = +(amount * (Number(category.referral_percent) / 100)).toFixed(2);
+      if (bonusAmount > 0) {
+        referralBonus = await referralModel.createBonus({
+          referrer_id: referrerId,
+          referred_user_id: userId,
+          payment_id: payment.id,
+          amount: bonusAmount,
+        });
+      }
+    }
+
+    res.status(201).json({ payment, subscription, referralBonus });
   } catch (err) {
     next(err);
   }

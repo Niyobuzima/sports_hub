@@ -9,6 +9,7 @@ const registrationRoutes = require('./routes/registration.routes');
 const categoryRoutes = require('./routes/category.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const subscriptionRoutes = require('./routes/subscription.routes');
+const referralRoutes = require('./routes/referral.routes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/api/registrations', registrationRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
+app.use('/api/referrals', referralRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
